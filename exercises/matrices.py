@@ -1,5 +1,5 @@
 from vectors import Vector
-
+import numpy as np
 class Matrix:
     def __init__(self, rows):
         self.rows = [list(row) for row in rows]
@@ -50,3 +50,61 @@ output = weights @ input_vector
 print(f"Input (3D): {input_vector}")
 print(f"Output (2D): {output}")
 print("This is what a neural network layer does -- matrix multiplication.")
+
+
+# ex-pb:2 Create a 2D scaling matrix that doubles the x-coordinate and triples the y-coordinate, then apply it to the vector [1, 1]
+
+import numpy as np
+
+scaling_matrix = np.array([
+    [2, 0],
+    [0, 3]
+])
+
+vector = np.array([1, 1])
+
+result = scaling_matrix @ vector
+
+print(result)
+
+
+#ex-pb: 3 Given 5 random word-like vectors (dimension 50), find the two most similar using cosine similarity
+
+vectors = np.random.rand(5,50)
+
+highest_similarity = -1
+most_similar_pair = None
+
+for i in range(5):
+    for j in range(i+1, 5):
+
+        dot_product = np.dot(vectors[i], vectors[j])
+
+        magnitude_a = np.linalg.norm(vectors[i])
+        magnitude_b = np.linalg.norm(vectors[j])
+
+        similarity = dot_product / (magnitude_a * magnitude_b)
+
+        print(f"Vector {i} vs Vector {j}: {similarity:.4f}")
+
+        if similarity > highest_similarity:
+            highest_similarity = similarity
+            most_similar_pair = (i, j)
+
+            
+assert most_similar_pair is not None
+
+print("\nMost similar pair:")
+print(f"Vector {most_similar_pair[0]} and Vector {most_similar_pair[1]}")
+print(f"Cosine similarity: {highest_similarity:.4f}")
+
+
+
+
+
+
+
+
+
+
+
